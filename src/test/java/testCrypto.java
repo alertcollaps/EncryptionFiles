@@ -1,5 +1,6 @@
 import Crypto.Encryption.Crypto;
 import Crypto.Encryption.Mode;
+import File.Encrypt;
 
 public class testCrypto {
     //"8899aabb ccddeeff 00112233 44556677 fedcba98 76543210 01234567 89abcdef";
@@ -100,6 +101,15 @@ public class testCrypto {
         test(Mode.CFB, ivByteCFB);
     }
 
+    public static void testImitovstavka() {
+        String mode = "Imitovstavka";
+        Crypto cr = new Crypto(keyByte, Mode.CBC, new byte[32]);
+        byte[] imit = cr.imitovstavka(dataByte);
+
+        System.out.println("------" + mode + "------");
+        System.out.println("Imitivstavka text: " + bytesToHex(imit));
+    }
+
     public static void testCBCUpdate(){
         String mode = "CBC";
         crypto cr = new crypto(dataByte1, keyByte, mode, ivByteCBC, "NoPadding");
@@ -151,6 +161,7 @@ public class testCrypto {
         testCTR(); //Гаммирование
         testOFB();
         testCFB();
+        testImitovstavka();
     }
 
     public static String bytesToHex(byte[] hash) {
